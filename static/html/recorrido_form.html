@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Laboratorio-Programacion-3/static/css/styles.css">
     <title>CITYTUR CATAMARCA</title>
 </head>
 <body>
@@ -14,25 +15,24 @@
             <a href="#">algo</a>
         </nav>
     </header>
-    <main>
-        <form>
-        <label>Fecha</label>
-            <input type="datetime-local" name="fecha">
-        <label>Origen</label>
-            <input type="text" name="origen">
-        <label>Destino</label>
-            <input type="text" name="destino">
+    <main id="main-form">
+        <form class="recorrido-form">
+            <label for="fecha">Fecha</label>
+                <input id="fecha" class="recorrido-input" type="datetime-local">
+            <label for="origen">Origen</label>
+                <input id="origen" class="recorrido-input" type="text">
+            <label for="destino">Destino</label>
+                <input id="destino" class="recorrido-input" type="text">
 
-        <div>
+        <div class="buttoner-form">
             <button type="submit">Agregar</button>
             <button type="reset">Editar</button>
-            <button type="remove">Eliminar</button>
+            <button class="remove-btn" type="remove">Eliminar</button>
         </div>
-
-        <br><br>
     </form>
     </main>
     <footer>
+        <br><br>
         <p>&copy; 2025 CITYTUR CATAMARCA. Todos los derechos reservados.</p>
     </footer>
 
