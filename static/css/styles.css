@@ -99,7 +99,6 @@ textarea {
 h1 {
     font-size: 2.2em;
     margin-top: 0;
-    color: #000;
     color: var(--text-bright);
 }
 
@@ -135,8 +134,8 @@ button:hover {
 }
 
 main {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
 
 header {
@@ -147,7 +146,7 @@ header {
 
 nav {
     display: flex;
-    gap: 10px;
+    gap: 5%;
 }
 
 .remove-btn:hover {  
@@ -166,7 +165,7 @@ nav {
 }
 
 .text-section {
-    padding-right: 20px;
+    padding-right: 10%;
 }
 
 #main-section {
@@ -177,4 +176,27 @@ nav {
 #main-form {
     display: flex;
     flex-direction: column;
+}
+
+.text-footer {
+    padding-top: 7%;
+    padding-left: 2%;
+}
+
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #main-section {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .text-section {
+        padding-left: 5%;
+        padding-right: 5%;
+        display: flex;
+        flex-direction: column;
+    }
 }
