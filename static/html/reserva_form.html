@@ -1,14 +1,20 @@
+<!--
+Permitir la reserva anticipada del recorrido, brindando al turista la posibilidad de
+seleccionar la fecha, hora, punto de partida, recorrido y la cantidad de personas para las
+cuales realiza la reserva.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Laboratorio-Programacion-3/static/css/styles.css">
     <title>CITYTUR CATAMARCA</title>
+    <link rel="stylesheet" href="/Laboratorio-Programacion-3/static/css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Formulario de Recorrido</h1>
+        <h1>Formulario de Reservas</h1>
         <nav>
             <a href="landing_page.html">CityCatamarca</a>
             <a href="recorrido_form.html">Recorridos</a>
@@ -17,16 +23,19 @@
     </header>
     <main id="main-form">
         <form class="recorrido-form">
-            <label for="fecha">Fecha</label>
+            <label for="fecha">Fecha y hora</label>
                 <input id="fecha" class="recorrido-input" type="datetime-local">
-            <label for="origen">Origen</label>
-                <input id="origen" class="recorrido-input" type="text">
-            <label for="destino">Destino</label>
-                <input id="destino" class="recorrido-input" type="text">
+            <label for="Recorrido">Recorrido</label>
+                <select id="Recorrido" class="recorrido-input">
+                    <option value="">recorrido 1</option>
+                    <option value="">recorrido 2</option>
+                    <option value="">recorrido 3</option>
+                </select>
+            <label for="Cant_per">Cantidad de personas</label>
+                <input type="number" id="Cant_per">
 
         <div class="buttoner-form">
             <button type="submit">Agregar</button>
-            <button type="reset">Editar</button>
             <button class="remove-btn" type="remove">Eliminar</button>
         </div>
     </form>
@@ -34,6 +43,5 @@
     <footer>
         <p class="text-footer">&copy; 2025 CITYTUR CATAMARCA. Todos los derechos reservados.</p>
     </footer>
-
 </body>
 </html>

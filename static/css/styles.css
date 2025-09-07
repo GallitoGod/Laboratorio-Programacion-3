@@ -96,6 +96,19 @@ textarea {
     outline: none;
 }
 
+select {
+  color: var(--form-placeholder);
+  background-color: var(--background);
+  font-family: inherit;
+  font-size: inherit;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
 h1 {
     font-size: 2.2em;
     margin-top: 0;
