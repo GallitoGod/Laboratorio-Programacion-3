@@ -109,6 +109,13 @@ select {
   outline: none;
 }
 
+select:hover {
+    background: #9b9b9b;
+    color: #fff;
+    background: var(--button-hover);
+    cursor: pointer;
+}
+
 h1 {
     font-size: 2.2em;
     margin-top: 0;
