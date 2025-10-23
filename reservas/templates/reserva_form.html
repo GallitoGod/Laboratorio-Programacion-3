@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main id="main-form">
+        <form class="recorrido-form">
+            <label for="fecha">Fecha y hora</label>
+                <input id="fecha" class="recorrido-input" type="datetime-local">
+            <label for="Recorrido">Recorrido</label>
+                <select id="Recorrido" class="recorrido-input">
+                    <option value="">recorrido 1</option>
+                    <option value="">recorrido 2</option>
+                    <option value="">recorrido 3</option>
+                </select>
+            <label for="Cant_per">Cantidad de personas</label>
+                <input type="number" id="Cant_per" min="1">
+
+        <div class="buttoner-form">
+            <button type="submit">Agregar</button>
+            <button class="remove-btn" type="remove">Eliminar</button>
+        </div>
+    </form>
+    </main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}

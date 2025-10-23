@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static  'css/styles.css' %}">
+    <title>CITYTUR CATAMARCA</title>
+</head>
+<body data-page="landing_page">
+    <header>
+        <h1>CITYTUR CATAMARCA</h1>
+        <nav>
+            <a href="{% url 'avisos:landing' %}">CityCatamarca</a>
+            <a href="{% url 'recorridos:formulario_recorrido' %}">Recorridos</a>
+            <a href="{% url 'reservas:reserva_formulario' %}">Reservas</a>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+    {% block footer_script %}
+    <footer>
+        <p>&copy; 2025 CITYTUR CATAMARCA. Todos los derechos reservados.</p>
+    </footer>
+    <script type="module" src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section id="main-section">
+            <div class="text-section">
+                <h3>Sistema Integral para la Gestión del Transporte Turístico, CITYTUR CATAMARCA</h3>
+                <p>Mejorando la experiencia de turismo en el recorrido de los principales puntos de interés de la ciudad</p>
+            </div>
+            <img class="colectivo-img" src="{% static 'images/colectivo.png' %}" alt="">
+        </section>
+    </main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}

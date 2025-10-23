@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main id="main-form">
+        <form class="recorrido-form">
+            <label for="fecha">Fecha</label>
+                <input id="fecha" class="recorrido-input" type="datetime-local">
+            <label for="origen">Origen</label>
+                <input id="origen" class="recorrido-input" type="text">
+            <label for="destino">Destino</label>
+                <input id="destino" class="recorrido-input" type="text">
+
+        <div class="buttoner-form">
+            <button type="submit">Agregar</button>
+            <button type="reset">Editar</button>
+            <button class="remove-btn" type="remove">Eliminar</button>
+        </div>
+    </form>
+    </main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}
