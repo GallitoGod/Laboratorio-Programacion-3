@@ -9,9 +9,15 @@
                 <input id="fecha" class="recorrido-input" type="datetime-local">
             <label for="Recorrido">Recorrido</label>
                 <select id="Recorrido" class="recorrido-input">
-                    <option value="">recorrido 1</option>
-                    <option value="">recorrido 2</option>
-                    <option value="">recorrido 3</option>
+                    {% for circuito in circuitos %}
+                    <option value="{{ circuito.id }}">{{ circuito.nombre }}</option>
+                    {% endfor %}
+                </select>
+            <label for="punto_partida">Punto de partida</label>
+                <select name="punto_partida" id="">
+                    {% for parada in paradas %}
+                    <option value="{{ parada.id }}">{{ parada.nombre }}</option>
+                    {% endfor %}
                 </select>
             <label for="Cant_per">Cantidad de personas</label>
                 <input type="number" id="Cant_per" min="1">
