@@ -4,7 +4,7 @@
 
 {% block content %}
     <main id="main-form">
-        <form class="recorrido-form">
+        <form class="recorrido-form" action="{% url 'reservas:reserva_formulario' %}" method="POST">
             <label for="fecha">Fecha y hora</label>
                 <input id="fecha" class="recorrido-input" type="datetime-local">
             <label for="Recorrido">Recorrido</label>
@@ -28,6 +28,15 @@
         </div>
     </form>
     </main>
+{% endblock %}
+
+{% block mensajes %}
+    {% if respuesta_bool %}
+        <p class="respuesta_positiva">{{ respuesta }}</p>
+    {% endif %}
+    {% if not respuesta_bool %}
+            <p class="respuesta_negativa">{{ respuesta }}</p>
+    {% endif %}
 {% endblock %}
 
 {% block footer_script %}

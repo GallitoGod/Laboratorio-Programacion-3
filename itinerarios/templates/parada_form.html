@@ -4,26 +4,18 @@
 
 {% block content %}
     <main id="main-form">
-        <form class="recorrido-form" method="post" action="{% url 'recorridos:recorrido_formulario' %}">
+        <form class="recorrido-form" method="post" action="{% url 'itinerarios:pd_formulario' %}">
             {% csrf_token %}
             <label for="nombre">Nombre</label>
                 <input required name="nombre" id="nombre" class="recorrido-input" type="text">
-            <label for="fecha">Fecha</label>
-                <input required name="fecha" id="fecha" class="recorrido-input" type="datetime-local">
-            <label for="origen">Origen</label>
-                <input required name="origen" id="origen" class="recorrido-input" type="text">
-            <label for="destino">Destino</label>
-                <input required name="destino" id="destino" class="recorrido-input" type="text">
+            <label for="descripcion">Descripcion</label>
+                <input required name="descripcion" id="descripcion" class="recorrido-input" type="text">
+            <label for="ubicacion">Ubicacion</label>
+                <input required name="ubicacion" id="ubicacion" class="recorrido-input" type="text">
             <label for="itinerario">Itinerario</label>
-                <select required name="itinerario" id="">
+                <select name="itinerario" id="itinerario">
                     {% for itinerario in itinerarios %}
-                    <option value="{{ itinerario.id }}">{{ itinerario.nombre }}</option>
-                    {% endfor %}
-                </select>
-            <label for="colectivo">Colectivo</label>
-                <select required name="colectivo" id="">
-                    {% for colectivo in colectivos %}
-                    <option value="{{ colectivo.matricula }}">{{ colectivo.nombre }}</option>
+                        <option value="{{ itinerario.id }}">{{ itinerario.nombre }}</option>
                     {% endfor %}
                 </select>
 

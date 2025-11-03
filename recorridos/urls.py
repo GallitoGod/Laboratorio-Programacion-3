@@ -3,5 +3,5 @@ from . import views
 
 app_name= 'recorridos'
 urlpatterns = [
-    path('formulario_recorrido/', views.formulario_recorrido, name='formulario_recorrido')
+    path('recorrido_formulario/', views.recorrido_formulario, name='recorrido_formulario')
 ]

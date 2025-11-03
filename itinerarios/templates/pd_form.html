@@ -4,12 +4,14 @@
 
 {% block content %}
     <main id="main-form">
-        <form class="recorrido-form" method="post" action="{% url 'itinerarios:itinerario_formulario' %}" enctype="multipart/form-data">
+        <form class="recorrido-form" method="post" action="{% url 'itinerarios:pd_formulario' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="nombre">Nombre</label>
                 <input required name="nombre" id="nombre" class="recorrido-input" type="text">
+            <label for="descripcion">Descripcion</label>
+                <input required name="descripcion" id="descripcion" class="recorrido-input" type="text">
             <label class="boton-subida" for="imagen">Imagen</label>
-                <input required name="imagen" id="fecha" class="recorrido-input" type="file" accept="image/*">
+                <input required name="imagen" id="imagen" class="recorrido-input" type="file" accept="image/*">
 
         <div class="buttoner-form">
             <button type="submit">Agregar</button>
