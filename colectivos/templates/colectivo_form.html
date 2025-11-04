@@ -1,27 +1,45 @@
 {% extends 'base.html' %}
 
-{% block body_id %}recorrido_form{% endblock %}
+{% block body_id %}colectivo_form{% endblock %}
 
 {% block content %}
-    <main id="main-form">
-        <form class="recorrido-form" method="post" action="{% url 'recorridos:formulario_colectivo' %}">
-            {% csrf_token %}
-            <label for="fecha">Fecha</label>
-                <input name="fecha" id="fecha" class="recorrido-input" type="datetime-local">
-            <label for="origen">Origen</label>
-                <input name="origen" id="origen" class="recorrido-input" type="text">
-            <label for="destino">Destino</label>
-                <input name="destino" id="destino" class="recorrido-input" type="text">
+<main id="main-form">
+    <form class="colectivo-form" method="post" action="{% url 'colectivo_formulario' %}">
+>
+        {% csrf_token %}
+        
+        <label for="nombre">Nombre</label>
+        <input name="nombre" id="nombre" class="colectivo-input" type="text" required>
+        
+        <label for="cantAsientos">Cantidad de Asientos</label>
+        <input name="cantAsientos" id="cantAsientos" class="colectivo-input" type="number" required>
+        
+        <label for="matricula">Matrícula</label>
+        <input name="matricula" id="matricula" class="colectivo-input" type="text" required>
+        
+        <label for="descripcion">Descripción</label>
+        <input name="descripcion" id="descripcion" class="colectivo-input" type="text">
+        
+        <label for="operador">Operador</label>
+        <select name="operador" id="operador" required>
+            <option value="">-- Seleccione un operador --</option>
+            {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+            {% endfor %}
+        </select>
 
         <div class="buttoner-form">
             <button type="submit">Agregar</button>
-            <button type="reset">Editar</button>
-            <button class="remove-btn" type="remove">Eliminar</button>
+            <button type="reset">Limpiar</button>
         </div>
     </form>
-    </main>
+</main>
 {% endblock %}
 
 {% block footer_script %}
     {{ block.super }}
 {% endblock %}
+
+
+
+
