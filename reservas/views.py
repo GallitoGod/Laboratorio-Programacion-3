@@ -1,14 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from itinerarios.models import Itinerario, Parada
 from recorridos.models import Circuito
 from colectivos.models import Colectivo
 from .models import Reserva
 
 # Create your views here.
-#TODO: una reserva se hace sobre un itinerario, mi idea es mostrar todos los itinerarios en pagina pincipal,
-#si se toca, se envia a la pagina especifica de este itinerario mostrando imagen/es, descripcion, nombre, etc
-#y un boton de reseva, el cual tiene que llevar a reserva_formulario, pero debe ser especifico a ese itinerario
-#asi se pueden elegir los puntos de partida de los itinerarios siendo todas las paradas que contiene.
 
 def reserva_formulario(request, pk):
     itinerario = Itinerario.objects.get(pk= pk)
@@ -17,17 +13,61 @@ def reserva_formulario(request, pk):
     if request.method == 'POST':
         circuito_pk = request.POST.get('circuito')
         punto_partida_pk = request.POST.get('punto_partida')
-        cantidad_personas = request.POST.get('cant_per')
-        if cantidad_personas > 
-        circuito = Circuito.objects.filter(pk= circuito_pk)
-        punto_partida = Parada.objects.filter(pk= punto_partida_pk)
+        cant_per = request.POST.get('cant_per', 0)
 
+        try:
+            cantidad_personas = int(cant_per)
+        except (TypeError, ValueError):
+            cantidad_personas = 0
 
-        return render(request, 'reserva_form.html', {
-            'itinerario_pk': pk,
-            'circuitos': circuitos,
-            'paradas': paradas
-        })
+        if not circuito_pk or not punto_partida_pk or cantidad_personas <= 0:
+            respuesta = 'Datos incorrectos, volver a intentar.'
+            return render(request, 'reservas/reserva_form.html', {
+                'respuesta_bool': False,
+                'respuesta': respuesta,
+                'itinerario': itinerario,
+                'circuitos': circuitos,
+                'paradas': paradas
+            })
+
+        circuito = get_object_or_404(Circuito, pk=circuito_pk, itinerario=itinerario)
+        punto_partida = get_object_or_404(Parada, pk=punto_partida_pk, itinerario=itinerario)
+        col_candidatos = (Colectivo.objects
+                        .select_for_update()
+                        .filter(circuito=circuito)
+                    )
+
+        elegido = None
+        mejor_sobrante = None
+        for col in col_candidatos:
+            disponibles = col.asientos_disponibles
+            if disponibles >= cantidad_personas:
+                sobrante = disponibles - cantidad_personas
+                if mejor_sobrante is None or sobrante < mejor_sobrante:
+                    mejor_sobrante = sobrante
+                    elegido = col
+
+        if not elegido:
+            respuesta = 'No Hay espacio suficiente en los colectivos del circuito.'
+            return render(request, 'reservas/reserva_form.html', {
+                'respuesta_bool': False,
+                'respuesta': respuesta,
+                'itinerario': itinerario,
+                'circuitos': circuitos,
+                'paradas': paradas
+            })
+
+        elegido.cant_ocupados = elegido.cant_ocupados + cantidad_personas
+        elegido.save()
+
+        Reserva.objects.create(
+            fecha= circuito.horario,
+            puntoPartida=punto_partida,
+            cantCupos=cantidad_personas,
+            circuito=circuito,
+            colectivo=elegido,
+        )
+        return redirect('itinerarios:itinerario_detalle', pk=itinerario.pk)
     
     else:
         return render(request, 'reserva_form.html', {
@@ -35,11 +75,3 @@ def reserva_formulario(request, pk):
             'circuitos': circuitos,
             'paradas': paradas
         })
-    
-# def prueba():
-#     circuito = get_object_or_404(Circuito, pk= 3)
-#     colectivos = circuito.colectivo_set.all()
-#     asientos_disponibles_por_circuito = 0
-#     for colectivo in colectivos:
-#         asientos_disponibles_por_circuito += colectivo.asientos_disponibles
-#     print(asientos_disponibles_por_circuito)
