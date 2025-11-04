@@ -63,7 +63,7 @@
             <ul class="cards">
             {% for itinerario in itinerarios %}
                 <li>
-                    <a class="card" href="#" aria-label="Ir a {{ itinerario.nombre }}">
+                    <a class="card" href="{% url 'itinerarios:itinerario_detalle' itinerario.pk %}" aria-label="Ir a {{ itinerario.nombre }}">
                         <article>
                             <figure>
                                 {% if itinerario.imagen and itinerario.imagen.name %}

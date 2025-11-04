@@ -4,7 +4,7 @@
 
 {% block content %}
     <main id="main-form">
-        <form class="recorrido-form" method="post" action="{% url 'itinerarios:pd_formulario' %}">
+        <form class="recorrido-form" method="post" action="{% url 'itinerarios:parada_formulario' %}">
             {% csrf_token %}
             <label for="nombre">Nombre</label>
                 <input required name="nombre" id="nombre" class="recorrido-input" type="text">

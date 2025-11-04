@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block body_id %}recorrido_form{% endblock %}
+
+{% block content %}
+    <style>
+        .cards { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 1rem; 
+            list-style: none; 
+            padding: 0; 
+        }
+        .card {
+            list-style: none;
+        }
+        .card article { 
+            border: 1px solid #e5e7eb; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            background: #fff; 
+        }
+        .card img { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            display:block; 
+        }
+        .card h3 { 
+            margin: .75rem 1rem; 
+            font-size: 1.1rem; 
+        }
+        .container-it-pd {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .container-pd {
+            display: block;
+        }
+        .container-it {
+            max-width: 35%;
+        }
+
+    </style>
+    <main>
+        <div class="container-it-pd">
+            <div class="container-it">
+                <h3>{{itinerario.nombre}}</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officiis quidem ipsam assumenda aut adipisci alias odio. Totam eveniet, quas veritatis ullam temporibus sint quod.</p>
+                <button>Reservar ya</button>
+            </div>
+            <div class="container-pd">
+                <h3>Puntos destacados</h3>
+                <ul class="cards">
+                {% for pd in puntos_destacados %}
+                    {% if pd.imagen and pd.imagen.name %}
+                        <li class="card">
+                            <article>
+                                <img src="{{ pd.imagen.url }}" alt="{{ pd.nombre }}" loading="lazy">
+                                <h4>{{ pd.nombre }}</h4>
+                                <p>{{ pd.descripcion }}</p>
+                            </article>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <section aria-labelledby="paradas-titulo">
+            <h2 id="paradas-titulo">Paradas</h2>
+            <ol>
+            {% for parada in paradas %}
+                <li>
+                <article>
+                    <h3>{{ parada.nombre }}</h3>
+                    <p>{{ parada.ubicacion }}</p>
+                    {% if parada.descripcion %}<p>{{ parada.descripcion }}</p>{% endif %}
+                </article>
+                </li>
+            {% endfor %}
+            </ol>
+        </section>
+    </main>
+{% endblock %}
+
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}

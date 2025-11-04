@@ -10,6 +10,12 @@
                 <input required name="nombre" id="nombre" class="recorrido-input" type="text">
             <label for="descripcion">Descripcion</label>
                 <input required name="descripcion" id="descripcion" class="recorrido-input" type="text">
+            <label for="itinerario">Itinerario</label>
+                <select name="itinerario" id="itinerario">
+                    {% for itinerario in itinerarios %}
+                        <option value="{{ itinerario.id }}">{{ itinerario.nombre }}</option>
+                    {% endfor %}
+                </select>
             <label class="boton-subida" for="imagen">Imagen</label>
                 <input required name="imagen" id="imagen" class="recorrido-input" type="file" accept="image/*">
 
