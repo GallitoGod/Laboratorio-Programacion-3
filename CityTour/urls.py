@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('recorridos/', include('recorridos.urls', namespace='recorridos')),
     path('reservas/', include('reservas.urls', namespace='reservas')),
-    path('itinerarios/', include('itinerarios.urls', namespace='itinerarios'))
+    path('itinerarios/', include('itinerarios.urls', namespace='itinerarios')),
+    path('colectivos/', include('colectivos.urls', namespace='colectivos'))
 ]
 
 if settings.DEBUG:

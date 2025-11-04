@@ -4,8 +4,7 @@
 
 {% block content %}
 <main id="main-form">
-    <form class="colectivo-form" method="post" action="{% url 'colectivo_formulario' %}">
->
+    <form class="recorrido-form" method="post" action="{% url 'colectivos:colectivo_formulario' %}">
         {% csrf_token %}
         
         <label for="nombre">Nombre</label>
@@ -22,7 +21,6 @@
         
         <label for="operador">Operador</label>
         <select name="operador" id="operador" required>
-            <option value="">-- Seleccione un operador --</option>
             {% for usuario in usuarios %}
                 <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
             {% endfor %}
@@ -34,6 +32,15 @@
         </div>
     </form>
 </main>
+{% endblock %}
+
+{% block mensajes %}
+    {% if respuesta_bool %}
+        <p class="respuesta_positiva">{{ respuesta }}</p>
+    {% endif %}
+    {% if not respuesta_bool %}
+            <p class="respuesta_negativa">{{ respuesta }}</p>
+    {% endif %}
 {% endblock %}
 
 {% block footer_script %}

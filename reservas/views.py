@@ -22,7 +22,7 @@ def reserva_formulario(request, pk):
 
         if not circuito_pk or not punto_partida_pk or cantidad_personas <= 0:
             respuesta = 'Datos incorrectos, volver a intentar.'
-            return render(request, 'reservas/reserva_form.html', {
+            return render(request, 'reserva_form.html', {
                 'respuesta_bool': False,
                 'respuesta': respuesta,
                 'itinerario': itinerario,
@@ -49,7 +49,7 @@ def reserva_formulario(request, pk):
 
         if not elegido:
             respuesta = 'No Hay espacio suficiente en los colectivos del circuito.'
-            return render(request, 'reservas/reserva_form.html', {
+            return render(request, 'reserva_form.html', {
                 'respuesta_bool': False,
                 'respuesta': respuesta,
                 'itinerario': itinerario,
