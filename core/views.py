@@ -6,4 +6,5 @@ from itinerarios.models import Itinerario
 
 
 def home(request):
-    return render(request, 'landing_page.html') 
+    itinerarios = Itinerario.objects.all()
+    return render(request, 'landing_page.html', {'itinerarios': itinerarios}) 

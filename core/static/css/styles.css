@@ -203,18 +203,6 @@ nav {
     padding-left: 2%;
 }
 
-.respuesta_positiva {
-    background-color: #0096bfab;
-    color: #fff;
-    border-radius: 7px;
-}
-
-.respuesta_negativa {
-    background-color: #e24e41;
-    color: #fff;
-    border-radius: 7px;
-}
-
 @media (max-width: 768px) {
     header {
         display: flex;
