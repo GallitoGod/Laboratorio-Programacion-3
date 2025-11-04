@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from itinerarios.models import Itinerario
 from colectivos.models import Colectivo
 from .models import Circuito
+from datetime import datetime
 
 # Create your views here.
 
@@ -11,12 +12,13 @@ def recorrido_formulario(request):
     if request.method == 'POST':
         try:
             nombre = request.POST.get('nombre')
-            fecha_hora = request.POST.get('fecha')
+            fecha_str = request.POST.get('fecha')  
+            fecha_hora = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
             origen = request.POST.get('origen')
             destino = request.POST.get('destino')
-            itinerario = request.POST.get('itinerario')
-            colectivo = request.POST.get('colectivo')
-            #Circuito.objects.create(nombre=nombre, hora=fecha_hora, origen=origen, destino=destino, itinerario=itinerario, colectivo=colectivo, estado='ACTIVO')
+            itinerario_pk = request.POST.get('itinerario')
+            itinerario_obj = get_object_or_404(Itinerario, pk=itinerario_pk)
+            Circuito.objects.create(nombre=nombre, horario=fecha_hora, origen=origen, destino=destino, itinerario=itinerario_obj, estado='ACTIVO')
             respuesta = 'Se cargo el recorrido correctamente.'
             return render(request, 'recorrido_form.html', {
                 'respuesta_bool': True, 
@@ -24,7 +26,8 @@ def recorrido_formulario(request):
                 'itinerarios': itinerarios, 
                 'colectivos': colectivos
             })
-        except:
+        except Exception as e:
+            print('ERROR', e)
             respuesta = 'Valores incorrectos, por favor volver a intentar.'
             return render(request, 'recorrido_form.html', {
                 'respuesta_bool': False, 

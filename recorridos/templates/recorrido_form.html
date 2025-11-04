@@ -20,12 +20,6 @@
                     <option value="{{ itinerario.id }}">{{ itinerario.nombre }}</option>
                     {% endfor %}
                 </select>
-            <label for="colectivo">Colectivo</label>
-                <select required name="colectivo" id="">
-                    {% for colectivo in colectivos %}
-                    <option value="{{ colectivo.matricula }}">{{ colectivo.nombre }}</option>
-                    {% endfor %}
-                </select>
 
         <div class="buttoner-form">
             <button type="submit">Agregar</button>

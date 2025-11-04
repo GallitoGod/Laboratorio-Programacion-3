@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block body_id %}recorrido_form{% endblock %}
+{% block body_id %}itinerario_detalle{% endblock %}
 
 {% block content %}
     <style>
@@ -48,7 +48,9 @@
             <div class="container-it">
                 <h3>{{itinerario.nombre}}</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officiis quidem ipsam assumenda aut adipisci alias odio. Totam eveniet, quas veritatis ullam temporibus sint quod.</p>
-                <button>Reservar ya</button>
+                <a href="{% url 'reservas:reserva_formulario' itinerario.pk %}" >
+                    <button>Reservar ya</button>
+                </a>
             </div>
             <div class="container-pd">
                 <h3>Puntos destacados</h3>
