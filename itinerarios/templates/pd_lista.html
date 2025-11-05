@@ -34,7 +34,9 @@
 <main id="main-form">
     <div class="div-container">
         <h2> Puntos destacados </h2>
-        <a href="{% url 'itinerarios:pd_formulario' %}">Agregar punto destacado</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'itinerarios:pd_formulario' %}">Agregar punto destacado</a>
+        {% endif %}
     </div>
     <table class="table_view">
         <thead>
@@ -45,7 +47,9 @@
                 <th>Imagen</th>
                 <th>Itinerario</th>
                 <th>Estado</th>
-                <th>-</th>
+                {% if user.is_superuser %}
+                    <th>-</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -57,17 +61,23 @@
                     <td>{{ pun_destacado.imagen }}</td>
                     <td>{{ pun_destacado.itinerario.nombre }}</td>
                     <td>{{ pun_destacado.estado }}</td>
-                    <td class="td-btn">
-                        <a class="btn btn-small" href="{% url 'itinerarios:pd_editar' pun_destacado.pk %}"><button>Editar</button></a>
-                        <form action="{% url 'itinerarios:pd_eliminar' pun_destacado.pk %}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('Eliminar punto destacado {{pun_destacado.nombre }}?');">
-                            {% csrf_token %}
-                            <button type="submit">Borrar</button>
-                        </form>
-                    </td>
+                    {% if user.is_superuser %}
+                        <td class="td-btn">
+                            <a class="btn btn-small" href="{% url 'itinerarios:pd_editar' pun_destacado.pk %}"><button>Editar</button></a>
+                            <form action="{% url 'itinerarios:pd_eliminar' pun_destacado.pk %}" method="POST" style="display:inline;"
+                                onsubmit="return confirm('Eliminar punto destacado {{pun_destacado.nombre }}?');">
+                                {% csrf_token %}
+                                <button type="submit">Borrar</button>
+                            </form>
+                        </td>
+                    {% endif %}
                 </tr>
             {% empty %}
-                <tr><td colspan="5">No hay Puntos destacados cargados.</td></tr>
+                <tr>
+                    <td colspan="{% if user.is_superuser %}7{% else %}6{% endif %}">
+                        No hay Puntos destacados cargados.
+                    </td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>

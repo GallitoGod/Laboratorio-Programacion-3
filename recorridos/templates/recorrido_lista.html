@@ -60,9 +60,9 @@
                     <td>{{ circuito.itinerario }}</td>
                     <td>{{ circuito.estado }}</td>
                     <td class="td-btn">
-                        <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}">
-                            <button>Editar</button>
-                        </a>
+                            <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}">
+                                <button>Editar</button>
+                            </a>
                         <form action="{% url 'recorridos:circuito_eliminar' circuito.pk %}" method="POST" style="display:inline;"
                             onsubmit="return confirm('Eliminar circuito {{ circuito.nombre }}?');">
                             {% csrf_token %}

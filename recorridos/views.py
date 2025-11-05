@@ -4,9 +4,11 @@ from colectivos.models import Colectivo
 from .models import Circuito
 from .forms import CircuitoForm
 from datetime import datetime
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
+@login_required(login_url='usuarios:login')
 def recorrido_formulario(request):
     itinerarios = Itinerario.objects.all()
     colectivos = Colectivo.objects.all()
@@ -60,7 +62,9 @@ def recorrido_formulario(request):
             'itinerarios': itinerarios, 
             'colectivos': colectivos
         })
-    
+
+@login_required(login_url='usuarios:login')
+@permission_required('recorridos.delete_circuito', raise_exception=True)
 def eliminar_circuito(request, pk):
     if request.method != 'POST':
         return redirect('recorridos:circuito_listar')
@@ -72,8 +76,8 @@ def eliminar_circuito(request, pk):
         print('ERROR: ', e)
         return redirect('recorridos:circuito_listar')
 
-
-
+@login_required(login_url='usuarios:login')
+@permission_required('recorridos.change_circuito', raise_exception=True)
 def editar_circuito(request, pk):
     obj = get_object_or_404(Circuito, pk=pk)
     if request.method == 'POST':
@@ -86,7 +90,8 @@ def editar_circuito(request, pk):
     else:
         form = CircuitoForm(instance=obj)
         return render(request, 'recorrido_editar.html', {'form': form, 'obj': obj})
-    
+
+@login_required(login_url='usuarios:login')
 def lista_circuito(request):
     circuitos = Circuito.objects.all()
     return render(request, 'recorrido_lista.html', {'circuitos': circuitos})
