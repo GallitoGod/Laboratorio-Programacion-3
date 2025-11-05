@@ -77,7 +77,6 @@ def recorrido_formulario(request):
             'colectivos': colectivos
         })
     
-
 def eliminar_circuito(request, pk):
     if request.method != 'POST':
         return redirect('recorridos:circuito_listar')
