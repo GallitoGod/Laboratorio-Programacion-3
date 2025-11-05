@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body_id %}rf23{% endblock %}
+{% block content %}
+<main id="main-form">
+  <h2>Informe · Recorridos activos</h2>
+
+  <form method="get" class="filters">
+    <input type="datetime-local" name="desde" value="{{ filtros.desde }}">
+    <input type="datetime-local" name="hasta" value="{{ filtros.hasta }}">
+    <select name="itinerario" id="itinerario">
+        {% for itinerario in itinerarios %}
+            <option value="{{ itinerario.pk }}">{{ itinerario.nombre }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filtrar</button>
+  </form>
+
+    <table class="table_view">
+        <thead>
+            <tr>
+                <th>Itinerario</th>
+                <th>Circuito</th>
+                <th>Fecha/Hora</th>
+                <th>Capacidad</th>
+                <th>Ocupados</th>
+                <th>Ocupación %</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r in rows %}
+            <tr>
+                <td>{{ r.itinerario }}</td>
+                <td>{{ r.circuito }}</td>
+                <td>{{ r.fecha_hora }}</td>
+                <td>{{ r.asientos_disponibles }}</td>
+                <td>{{ r.personas_reservadas }}</td>
+                <td>{{ r.ocupacion_pct|floatformat:1 }}%</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6">Sin datos</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

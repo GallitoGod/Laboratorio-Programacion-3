@@ -28,6 +28,7 @@ urlpatterns = [
     path('itinerarios/', include('itinerarios.urls', namespace='itinerarios')),
     path('colectivos/', include('colectivos.urls', namespace='colectivos')),
     path('usuarios/', include('usuarios.urls', namespace='usuarios')),
+    path('informes/', include('informes.urls', namespace='informes')),
     path('', TemplateView.as_view(template_name='core/landing_page.html'), name='home')
 ]
 
