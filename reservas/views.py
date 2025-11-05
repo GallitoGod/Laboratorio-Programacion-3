@@ -62,6 +62,7 @@ def reserva_formulario(request, pk):
         elegido.save()
 
         Reserva.objects.create(
+            usuario= request.user,
             fecha= circuito.horario,
             puntoPartida=punto_partida,
             cantCupos=cantidad_personas,

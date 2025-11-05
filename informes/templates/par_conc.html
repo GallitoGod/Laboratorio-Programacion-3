@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body_id %}rf25{% endblock %}
+{% block content %}
+<h2>Paradas mas concurridas</h2>
+
+<form method="get">
+  <label>Itinerario:</label>
+  <select name="itinerario" required>
+    <option value="">-- Seleccione --</option>
+    {% for it in itinerarios %}
+      <option value="{{ it.id }}" {% if it.id|stringformat:"s" == it_id %}selected{% endif %}>
+        {{ it.nombre }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filtrar</button>
+</form>
+
+{% if itinerario %}
+  <h3>{{ itinerario.nombre }}</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID Parada</th>
+        <th>Parada</th>
+        <th>Concurrencia (cupos)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in filas %}
+        <tr>
+          <td>{{ f.parada_id }}</td>
+          <td>{{ f.parada_nombre }}</td>
+          <td>{{ f.concurrencia }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}

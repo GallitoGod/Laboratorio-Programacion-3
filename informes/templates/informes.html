@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body_id %}rf23{% endblock %}
+{% block content %}
+<style>
+    .div-container { 
+        display: flex;
+        flex-direction: column;
+    }
+    .div-container a {
+        margin: 20px;
+    }
+</style>
+
+    <div class="div-container">
+        <a href="{% url 'informes:inf_rec_act' %}"><button type="button">Recorridos activos</button></a>
+        <a href="{% url 'informes:inf_rec_res' %}"><button type="button">Reservas por recorrido</button></a>
+        <a href="{% url 'informes:inf_par_conc' %}"><button type="button">Paradas mas concurridas</button></a>
+        <a href="{% url 'informes:inf_cant_pas_v' %}"><button type="button">Cantidad de pasajeros por viaje</button></a>
+    </div>
+{% endblock %}

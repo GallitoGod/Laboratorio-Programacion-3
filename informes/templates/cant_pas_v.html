@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block body_id %}rf23{% endblock %}
+{% block content %}
+<h2>Cantidad de pasajeros por viaje</h2>
+
+<form method="get">
+  <label for="circuito">Recorrido:</label>
+  <select name="circuito" id="circuito" required>
+    {% for c in circuitos %}
+      <option value="{{ c.id }}" {% if c.id|stringformat:"s" == circuito_id %}selected{% endif %}>
+        {{ c.nombre }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <label for="desde">Desde:</label>
+  <input type="date" name="desde" id="desde" value="{{ desde }}" required>
+
+  <label for="hasta">Hasta:</label>
+  <input type="date" name="hasta" id="hasta" value="{{ hasta }}" required>
+
+  <button type="submit">Filtrar</button>
+</form>
+
+{% if circuito_id %}
+  <h3>Resultados</h3>
+  {% if reservas %}
+    <p><strong>Total de pasajeros:</strong> {{ total_pasajeros }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Reserva</th>
+          <th>Fecha</th>
+          <th>Punto de partida</th>
+          <th>Cupos reservados</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservas %}
+          <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.fecha }}</td>
+            <td>{{ r.puntoPartida }}</td>
+            <td>{{ r.cantCupos }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay reservas en ese rango de fechas para este recorrido.</p>
+  {% endif %}
+{% endif %}
+{% endblock %}
