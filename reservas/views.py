@@ -3,9 +3,10 @@ from itinerarios.models import Itinerario, Parada
 from recorridos.models import Circuito
 from colectivos.models import Colectivo
 from .models import Reserva
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url='usuarios:login')
 def reserva_formulario(request, pk):
     itinerario = Itinerario.objects.get(pk= pk)
     circuitos = Circuito.objects.filter(itinerario= itinerario).order_by('id')
