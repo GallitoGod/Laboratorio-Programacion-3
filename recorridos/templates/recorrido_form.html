@@ -29,15 +29,6 @@
     </main>
 {% endblock %}
 
-{% block mensajes %}
-    {% if respuesta_bool %}
-        <p class="respuesta_positiva">{{ respuesta }}</p>
-    {% endif %}
-    {% if not respuesta_bool %}
-            <p class="respuesta_negativa">{{ respuesta }}</p>
-    {% endif %}
-{% endblock %}
-
 {% block footer_script %}
     {{ block.super }}
 {% endblock %}
