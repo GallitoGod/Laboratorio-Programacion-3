@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from colectivos.models import Colectivo
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Colectivo
+from .forms import ColectivoForm
 from usuarios.models import Usuario
 
 def formulario_colectivo(request):
@@ -63,4 +64,27 @@ def formulario_colectivo(request):
             'usuarios': usuarios
         })
 
+def eliminar_colectivo(request, pk):
+    if request.method != 'POST':
+        return redirect('colectivos:colectivo_lista')
+    obj = get_object_or_404(Colectivo, pk=pk)
+    obj.delete()
+    return redirect('colectivos:colectivo_lista')
 
+
+def editar_colectivo(request, pk):
+    obj = get_object_or_404(Colectivo, pk=pk)
+    if request.method == 'POST':
+        form = ColectivoForm(request.POST, request.FILES, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('colectivos:colectivo_lista')
+        else:
+            return render(request, 'colectivo_editar.html', {'form': form, 'obj': obj})
+    else:
+        form = ColectivoForm(instance=obj)
+        return render(request, 'colectivo_editar.html', {'form': form, 'obj': obj})
+    
+def lista_colectivo(request):
+    colectivos = Colectivo.objects.all()
+    return render(request, 'colectivo_lista.html', {'colectivos': colectivos})
