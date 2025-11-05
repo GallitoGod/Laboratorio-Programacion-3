@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,7 +26,9 @@ urlpatterns = [
     path('recorridos/', include('recorridos.urls', namespace='recorridos')),
     path('reservas/', include('reservas.urls', namespace='reservas')),
     path('itinerarios/', include('itinerarios.urls', namespace='itinerarios')),
-    path('colectivos/', include('colectivos.urls', namespace='colectivos'))
+    path('colectivos/', include('colectivos.urls', namespace='colectivos')),
+    path('usuarios/', include('usuarios.urls', namespace='usuarios')),
+    path('', TemplateView.as_view(template_name='core/landing_page.html'), name='home')
 ]
 
 if settings.DEBUG:
