@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body_id %}colectivo_form{% endblock %}
+
+{% block content %}
+
+<style>
+    .table_view {
+        width: 15627000000px;
+    }
+</style>
+
+<main id="main-form">
+    <h2> Colectivos </h2>
+    <table class="table_view">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Cant_asientos</th>
+                <th>Asientos_oc</th>
+                <th>Matricula</th>
+                <th>Operador</th>
+                <th>Descripcion</th>
+                <th>Circuito</th>
+                <th>Estado</th>
+                <th>-</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for colectivo in colectivos %}
+                <tr>
+                    <td>{{ colectivo.pk }}</td>
+                    <td>{{ colectivo.nombre }}</td>
+                    <td>{{ colectivo.cant_asientos }}</td>
+                    <td>{{ colectivo.cant_ocupados }}</td>
+                    <td>{{ colectivo.matricula }}</td>
+                    <td>{{ colectivo.operador }}</td>
+                    <td>{{ colectivo.descripcion }}</td>
+                    <td>{{ colectivo.circuito }}</td>
+                    <td>{{ colectivo.estado }}</td>
+                    <td>
+                        <a class="btn btn-small" href="#"><button>Editar</button></a>
+                        <form action="#" method="post" style="display:inline;"
+                            onsubmit="return confirm('Eliminar colectivo {{ colectivo.nombre }}?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-small">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No hay colectivos cargados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}
+
