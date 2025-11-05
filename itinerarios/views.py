@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Itinerario, PuntoDestacado, Parada
 from .forms import ItinerarioForm, ParadaForm, PDestacadoForm
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
-
+@login_required(login_url='usuarios:login')
 def formulario_itinerario(request):
     if request.method == 'POST':
         try:
@@ -27,6 +28,7 @@ def formulario_itinerario(request):
     else:
         return render(request, 'itinerario_form.html')
     
+@login_required(login_url='usuarios:login')
 def formulario_punto_destacado(request):
     itinerarios = Itinerario.objects.all()
     
@@ -61,6 +63,7 @@ def formulario_punto_destacado(request):
     else:
         return render(request, 'pd_form.html', {'itinerarios': itinerarios})
     
+@login_required(login_url='usuarios:login')
 def formulario_parada(request):
     itinerarios = Itinerario.objects.all()
 
@@ -94,7 +97,7 @@ def formulario_parada(request):
     else:
         return render(request, 'parada_form.html', {'itinerarios': itinerarios})
     
-
+@login_required(login_url='usuarios:login')
 def detalles_itinerario(request, pk):
     try:
         itinerario = get_object_or_404(Itinerario, pk=pk)
@@ -119,7 +122,7 @@ def detalles_itinerario(request, pk):
             'error': "Error al cargar el detalle del itinerario."
         })
     
-
+@login_required(login_url='usuarios:login')
 def eliminar_itinerario(request, pk):
     if request.method != 'POST':
         return redirect('itinerarios:itinerario_listar')
@@ -127,6 +130,7 @@ def eliminar_itinerario(request, pk):
     obj.delete()
     return redirect('itinerarios:itinerario_listar')
 
+@login_required(login_url='usuarios:login')
 def editar_itinerario(request, pk):
     obj = get_object_or_404(Itinerario, pk=pk)
     if request.method == 'POST':
@@ -139,13 +143,13 @@ def editar_itinerario(request, pk):
     else:
         form = ItinerarioForm(instance=obj)
         return render(request, 'itinerario_editar.html', {'form': form, 'obj': obj})
-    
+@login_required(login_url='usuarios:login')
 def lista_itinerario(request):
     itinerarios = Itinerario.objects.all()
     return render(request, 'itinerario_lista.html', {'itinerarios': itinerarios})
 
 
-
+@login_required(login_url='usuarios:login')
 def eliminar_parada(request, pk):
     if request.method != 'POST':
         return redirect('itinerarios:parada_listar')
@@ -153,6 +157,7 @@ def eliminar_parada(request, pk):
     obj.delete()
     return redirect('itinerarios:parada_listar')
 
+@login_required(login_url='usuarios:login')
 def editar_parada(request, pk):
     obj = get_object_or_404(Parada, pk=pk)
     if request.method == 'POST':
@@ -165,13 +170,14 @@ def editar_parada(request, pk):
     else:
         form = ParadaForm(instance=obj)
         return render(request, 'parada_editar.html', {'form': form, 'obj': obj})
-    
+
+@login_required(login_url='usuarios:login')  
 def lista_parada(request):
     paradas = Parada.objects.all()
     return render(request, 'parada_lista.html', {'paradas': paradas})
 
 
-
+@login_required(login_url='usuarios:login')
 def eliminar_punto_destacado(request, pk):
     if request.method != 'POST':
         return redirect('itinerarios:pd_listar')
@@ -179,6 +185,7 @@ def eliminar_punto_destacado(request, pk):
     obj.delete()
     return redirect('itinerarios:pd_listar')
 
+@login_required(login_url='usuarios:login')
 def editar_punto_destacado(request, pk):
     obj = get_object_or_404(PuntoDestacado, pk=pk)
     if request.method == 'POST':
@@ -191,7 +198,7 @@ def editar_punto_destacado(request, pk):
     else:
         form = PDestacadoForm(instance=obj)
         return render(request, 'pd_editar.html', {'form': form, 'obj': obj})
-    
+@login_required(login_url='usuarios:login')   
 def lista_punto_destacado(request):
     pun_destacados = PuntoDestacado.objects.all()
     return render(request, 'pd_lista.html', {'pun_destacados': pun_destacados})

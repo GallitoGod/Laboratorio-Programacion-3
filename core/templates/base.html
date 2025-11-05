@@ -17,9 +17,9 @@
             {% if user.is_authenticated %}
                 {% if user.groups.all.0.name == 'rol_operador' or user.is_superuser %}
                     <a href="{% url 'recorridos:circuito_listar' %}">Recorridos</a>
-                    {% if user.groups.all.0.name == user.is_superuser %}
+                    <a href="{% url 'itinerarios:pd_listar' %}">PPartida</a>
+                    {% if user.is_superuser %}
                         <a href="{% url 'itinerarios:itinerario_listar' %}">Itinerarios</a>
-                        <a href="{% url 'itinerarios:pd_listar' %}">PPartida</a>
                         <a href="{% url 'itinerarios:parada_listar' %}">Parada</a>
                         <a href="{% url 'colectivos:colectivo_listar' %}">Colectivo</a>
                     {% endif %}
