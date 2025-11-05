@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio Sesión{% endblock %}
+{% block content %}
+<h2>Mis reservas</h2>
+
+{% if not user.is_authenticated %}
+  <p>{{ mensaje }}</p>
+{% else %}
+  {% if reservas %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Recorrido</th>
+          <th>Punto de partida</th>
+          <th>Cupos reservados</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservas %}
+          <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.fecha }}</td>
+            <td>{{ r.circuito }}</td>
+            <td>{{ r.puntoPartida }}</td>
+            <td>{{ r.cantCupos }}</td>
+            <td>
+              {% if r.fecha > hoy %}
+                <form method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="reserva_id" value="{{ r.id }}">
+                  <button type="submit" onclick="return confirm('¿Cancelar esta reserva?')">
+                    Cancelar
+                  </button>
+                </form>
+              {% else %}
+                <em>No cancelable</em>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No tienes reservas registradas.</p>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

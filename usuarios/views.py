@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
+from reservas.models import Reserva
+from django.utils import timezone
 
 def login_view(request):
     if request.method == "POST":
@@ -17,3 +18,28 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "usuarios/login.html", {"msj": "Deslogueado"})
+
+def mis_reservas(request):
+    if not request.user.is_authenticated:
+        return render(request, 'reservas.html', {
+            'reservas': [],
+            'mensaje': 'Debes iniciar sesión para ver tus reservas.'
+        })
+
+    if request.method == 'POST':
+        reserva_id = request.POST.get('reserva_id')
+        r = get_object_or_404(Reserva, id=reserva_id, usuario=request.user)
+        if r.fecha >= timezone.now().date():
+            if r.colectivo_id is not None:
+                c = r.colectivo
+                c.cant_ocupados = max(0, (c.cant_ocupados or 0) - (r.cantCupos or 0))
+                c.save(update_fields=['cant_ocupados'])
+            r.delete()
+        return redirect('usuarios:mis_reservas')
+
+    reservas = Reserva.objects.filter(usuario=request.user).order_by('-fecha')
+
+    return render(request, 'reservas.html', {
+        'reservas': reservas,
+        'hoy': timezone.now().date(),
+    })
