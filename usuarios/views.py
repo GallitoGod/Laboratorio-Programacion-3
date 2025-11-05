@@ -9,10 +9,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect(reverse("home"))
+            return redirect('core:landing')
         else:
             return render(request, "usuarios/login.html", {"msj": "Credenciales incorrectas"})
-    return render(request, "usuarios/login.html") 
+    return redirect('core:landing') 
 
 def logout_view(request):
     logout(request)

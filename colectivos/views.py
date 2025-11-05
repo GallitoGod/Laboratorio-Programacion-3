@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Colectivo
 from .forms import ColectivoForm
 from recorridos.models import Circuito
-from usuarios.models import Usuario
+from usuarios.models import Perfil
+from django.contrib.auth.models import Group
 
 def formulario_colectivo(request):
-    usuarios = Usuario.objects.all()
+    operadores = Perfil.objects.filter(rol= 'OPERADOR')
     circuitos = Circuito.objects.all()
 
     if request.method == 'POST':
@@ -28,7 +29,7 @@ def formulario_colectivo(request):
             if not (nombre and descripcion and operador_pk and circuito_pk and matricula):
                     raise ValueError("Debe completar todos los campos obligatorios.")
 
-            operador_obj = get_object_or_404(Usuario, pk= operador_pk)
+            operador_obj = get_object_or_404(Perfil, pk= operador_pk)
             circuito_obj = get_object_or_404(Circuito, pk= circuito_pk)
 
             Colectivo.objects.create(
@@ -47,10 +48,10 @@ def formulario_colectivo(request):
         except Exception as e:
             print("ERROR:", e)
             
-        return redirect('colectivos:coletivo_listar')
+        return redirect('colectivos:colectivo_listar')
     else:
         return render(request, 'colectivo_form.html', {
-            'usuarios': usuarios,
+            'operadores': operadores,
             'circuitos': circuitos
         })
 

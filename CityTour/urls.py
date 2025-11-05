@@ -22,14 +22,13 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', include('core.urls', namespace='core')),
+    path('landing/', include('core.urls', namespace='core')),
     path('recorridos/', include('recorridos.urls', namespace='recorridos')),
     path('reservas/', include('reservas.urls', namespace='reservas')),
     path('itinerarios/', include('itinerarios.urls', namespace='itinerarios')),
     path('colectivos/', include('colectivos.urls', namespace='colectivos')),
-    path('usuarios/', include('usuarios.urls', namespace='usuarios')),
+    path('', include('usuarios.urls', namespace='usuarios')),
     path('informes/', include('informes.urls', namespace='informes')),
-    path('', TemplateView.as_view(template_name='core/landing_page.html'), name='home')
 ]
 
 if settings.DEBUG:

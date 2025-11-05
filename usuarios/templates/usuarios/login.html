@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% block titulo %}Inicio Sesión{% endblock %}
 {% block content %}
-    <header id="home">
+<style>
+    .mb-3 {
+        display: flex;
+        flex-direction: column;
+    }
+</style>  
+
+    <section id="home">
         <h1>Login de Usuario</h1>
         <p>Ingrese sus credenciales para Ingresar al Sistema</p>
-    </header>
-    
+    </section>
     <hr class="w-75">
-    
     <br>
-    
     {% if msj %}
-    
     <div>{{ msj }}</div>
-    
     {% endif %}
     
     <form action="{% url 'usuarios:login' %}" method="post" class="w-75">

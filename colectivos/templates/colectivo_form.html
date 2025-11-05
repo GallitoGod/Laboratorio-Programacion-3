@@ -21,8 +21,8 @@
         
         <label for="operador">Operador</label>
         <select name="operador" id="operador" required>
-            {% for usuario in usuarios %}
-                <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+            {% for operador in operadores %}
+                <option value="{{ operador.id }}">{{ operador.user.username }}</option>
             {% endfor %}
         </select>
 

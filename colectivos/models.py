@@ -1,5 +1,5 @@
 from django.db import models
-from usuarios.models import Usuario
+from usuarios.models import Perfil
 from recorridos.models import Circuito
 
 # Create your models here.
@@ -9,7 +9,7 @@ class Colectivo(models.Model):
     cant_asientos = models.IntegerField()
     cant_ocupados = models.IntegerField(default= 0)
     matricula = models.CharField(max_length= 20)
-    operador = models.ForeignKey(Usuario, on_delete= models.CASCADE)
+    operador = models.ForeignKey(Perfil, on_delete= models.CASCADE)
     descripcion = models.TextField(max_length= 200, default= 'sin descripcion')
     circuito = models.ForeignKey(Circuito, 
                                     on_delete= models.CASCADE, 
