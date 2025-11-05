@@ -34,9 +34,7 @@
 <main id="main-form">
     <div class="div-container">
         <h2> Recorridos </h2>
-            {% if es_operador %}
-            <a href="{% url 'recorridos:circuito_formulario' %}">Agregar recorrido</a>
-            {% endif %}
+        <a href="{% url 'recorridos:circuito_formulario' %}">Agregar recorrido</a>
     </div>
     <table class="table_view">
         <thead>
@@ -62,7 +60,6 @@
                     <td>{{ circuito.itinerario }}</td>
                     <td>{{ circuito.estado }}</td>
                     <td class="td-btn">
-                        {% if es_operador %}
                         <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}">
                             <button>Editar</button>
                         </a>
@@ -71,7 +68,6 @@
                             {% csrf_token %}
                             <button type="submit">Borrar</button>
                         </form>
-                        {% endif %}
                     </td>
                 </tr>
             {% empty %}
