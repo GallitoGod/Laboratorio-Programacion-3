@@ -33,43 +33,41 @@
 
 <main id="main-form">
     <div class="div-container">
-        <h2> Recorridos </h2>
-        <a href="{% url 'recorridos:circuito_formulario' %}">Agregar recorrido</a>
+        <h2> Puntos destacados </h2>
+        <a href="{% url 'itinerarios:pd_formulario' %}">Agregar punto destacado</a>
     </div>
     <table class="table_view">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Fecha-Hora</th>
-                <th>Origen</th>
-                <th>Destino</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
                 <th>Itinerario</th>
                 <th>Estado</th>
                 <th>-</th>
             </tr>
         </thead>
         <tbody>
-            {% for circuito in circuitos %}
+            {% for pun_destacado in pun_destacados %}
                 <tr>
-                    <td>{{ circuito.pk }}</td>
-                    <td>{{ circuito.nombre }}</td>
-                    <td>{{ circuito.horario }}</td>
-                    <td>{{ circuito.origen }}</td>
-                    <td>{{ circuito.destino }}</td>
-                    <td>{{ circuito.itinerario.nombre }}</td>
-                    <td>{{ circuito.estado }}</td>
+                    <td>{{ pun_destacado.pk }}</td>
+                    <td>{{ pun_destacado.nombre }}</td>
+                    <td>{{ pun_destacado.descripcion }}</td>
+                    <td>{{ pun_destacado.imagen }}</td>
+                    <td>{{ pun_destacado.itinerario.nombre }}</td>
+                    <td>{{ pun_destacado.estado }}</td>
                     <td class="td-btn">
-                        <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}"><button>Editar</button></a>
-                        <form action="{% url 'recorridos:circuito_eliminar' circuito.pk %}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('Eliminar circuito {{ circuito.nombre }}?');">
+                        <a class="btn btn-small" href="{% url 'itinerarios:pd_editar' pun_destacado.pk %}"><button>Editar</button></a>
+                        <form action="{% url 'itinerarios:pd_eliminar' pun_destacado.pk %}" method="POST" style="display:inline;"
+                            onsubmit="return confirm('Eliminar punto destacado {{pun_destacado.nombre }}?');">
                             {% csrf_token %}
                             <button type="submit">Borrar</button>
                         </form>
                     </td>
                 </tr>
             {% empty %}
-                <tr><td colspan="5">No hay recorridos cargados.</td></tr>
+                <tr><td colspan="5">No hay Puntos destacados cargados.</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -79,4 +77,3 @@
 {% block footer_script %}
     {{ block.super }}
 {% endblock %}
-

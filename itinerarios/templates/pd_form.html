@@ -20,21 +20,11 @@
                 <input required name="imagen" id="imagen" class="recorrido-input" type="file" accept="image/*">
 
         <div class="buttoner-form">
-            <button type="submit">Agregar</button>
-            <button type="reset">Editar</button>
-            <button class="remove-btn" type="remove">Eliminar</button>
+            <button type="submit" class="btn">Guardar</button>
+            <a class="btn btn-secondary" href="{% url 'itinerarios:pd_listar' %}"><button type="button">Cancelar</button></a>
         </div>
     </form>
     </main>
-{% endblock %}
-
-{% block mensajes %}
-    {% if respuesta_bool %}
-        <p class="respuesta_positiva">{{ respuesta }}</p>
-    {% endif %}
-    {% if not respuesta_bool %}
-            <p class="respuesta_negativa">{{ respuesta }}</p>
-    {% endif %}
 {% endblock %}
 
 {% block footer_script %}

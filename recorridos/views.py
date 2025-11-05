@@ -40,36 +40,20 @@ def recorrido_formulario(request):
             except Exception as e:
                 raise RuntimeError(f"No se pudo crear el circuito: {e}")
             
-            respuesta_bool = True
-            respuesta = 'Se cargo el recorrido correctamente.'
 
-            return render(request, 'recorrido_form.html', {
-                'respuesta_bool': respuesta_bool, 
-                'respuesta': respuesta, 
-                'itinerarios': itinerarios, 
-                'colectivos': colectivos
-            })
+            return redirect('recorridos:circuito_listar')
         
 
         except ValueError as ve:
-            respuesta_bool = False
-            respuesta = f'Error de validacion: {ve}'
+            print(f'Error de validacion: {ve}')
 
         except RuntimeError as re:
-            respuesta_bool = False
-            respuesta = f'Error al crear el circuito: {re}'
+            print(f'Error al crear el circuito: {re}')
 
         except Exception as e:
             print('ERROR:', e)
-            respuesta_bool = False
-            respuesta = 'Ocurrio un error al procesar el formulario.'
 
-        return render(request, 'recorrido_form.html', {
-            'respuesta_bool': respuesta_bool,
-            'respuesta': respuesta,
-            'itinerarios': itinerarios,
-            'colectivos': colectivos
-        })
+        return redirect('recorridos:circuito_listar')
     
     else:
         return render(request, 'recorrido_form.html', {

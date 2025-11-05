@@ -7,26 +7,16 @@
         <form class="recorrido-form" method="post" action="{% url 'itinerarios:itinerario_formulario' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="nombre">Nombre</label>
-                <input required name="nombre" id="nombre" class="recorrido-input" type="text">
+                <input name="nombre" id="nombre" class="recorrido-input" type="text">
             <label class="boton-subida" for="imagen">Imagen</label>
-                <input required name="imagen" id="fecha" class="recorrido-input" type="file" accept="image/*">
+                <input name="imagen" id="fecha" class="recorrido-input" type="file" accept="image/*">
 
         <div class="buttoner-form">
-            <button type="submit">Agregar</button>
-            <button type="reset">Editar</button>
-            <button class="remove-btn" type="remove">Eliminar</button>
+            <button type="submit" class="btn">Guardar</button>
+            <a class="btn btn-secondary" href="{% url 'itinerarios:itinerario_listar' %}"><button type="button">Cancelar</button></a>
         </div>
     </form>
     </main>
-{% endblock %}
-
-{% block mensajes %}
-    {% if respuesta_bool %}
-        <p class="respuesta_positiva">{{ respuesta }}</p>
-    {% endif %}
-    {% if not respuesta_bool %}
-            <p class="respuesta_negativa">{{ respuesta }}</p>
-    {% endif %}
 {% endblock %}
 
 {% block footer_script %}

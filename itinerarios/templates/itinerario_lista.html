@@ -33,43 +33,35 @@
 
 <main id="main-form">
     <div class="div-container">
-        <h2> Recorridos </h2>
-        <a href="{% url 'recorridos:circuito_formulario' %}">Agregar recorrido</a>
+        <h2> Itinerarios </h2>
+        <a href="{% url 'itinerarios:itinerario_formulario' %}">Agregar itinerario</a>
     </div>
     <table class="table_view">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Fecha-Hora</th>
-                <th>Origen</th>
-                <th>Destino</th>
-                <th>Itinerario</th>
-                <th>Estado</th>
+                <th>nombre de imagen</th>
                 <th>-</th>
             </tr>
         </thead>
         <tbody>
-            {% for circuito in circuitos %}
+            {% for itinerario in itinerarios %}
                 <tr>
-                    <td>{{ circuito.pk }}</td>
-                    <td>{{ circuito.nombre }}</td>
-                    <td>{{ circuito.horario }}</td>
-                    <td>{{ circuito.origen }}</td>
-                    <td>{{ circuito.destino }}</td>
-                    <td>{{ circuito.itinerario.nombre }}</td>
-                    <td>{{ circuito.estado }}</td>
+                    <td>{{ itinerario.pk }}</td>
+                    <td>{{ itinerario.nombre }}</td>
+                    <td>{{ itinerario.imagen }}</td>
                     <td class="td-btn">
-                        <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}"><button>Editar</button></a>
-                        <form action="{% url 'recorridos:circuito_eliminar' circuito.pk %}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('Eliminar circuito {{ circuito.nombre }}?');">
+                        <a class="btn btn-small" href="{% url 'itinerarios:itinerario_editar' itinerario.pk %}"><button>Editar</button></a>
+                        <form action="{% url 'itinerarios:itinerario_eliminar' itinerario.pk %}" method="POST" style="display:inline;"
+                            onsubmit="return confirm('Eliminar itinerario {{ itinerario.nombre }}?');">
                             {% csrf_token %}
                             <button type="submit">Borrar</button>
                         </form>
                     </td>
                 </tr>
             {% empty %}
-                <tr><td colspan="5">No hay recorridos cargados.</td></tr>
+                <tr><td colspan="5">No hay itinerarios cargados.</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -79,4 +71,3 @@
 {% block footer_script %}
     {{ block.super }}
 {% endblock %}
-

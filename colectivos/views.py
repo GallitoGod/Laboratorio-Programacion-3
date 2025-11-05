@@ -23,14 +23,7 @@ def formulario_colectivo(request):
                 cantidad_asientos = 0
 
             if not operador_pk or not circuito_pk or cantidad_asientos <= 0:
-                respuesta_bool = False
-                respuesta = 'Datos incorrectos, volver a intentar.'
-                return render(request, 'colectivo_form.html', {
-                    'respuesta_bool': respuesta_bool,
-                    'respuesta': respuesta,
-                    'usuarios': usuarios,
-                    'circuitos': circuitos
-                })
+                return redirect('colectivos:colectivo_listar')
 
             if not (nombre and descripcion and operador_pk and circuito_pk and matricula):
                     raise ValueError("Debe completar todos los campos obligatorios.")
@@ -45,27 +38,16 @@ def formulario_colectivo(request):
                 operador= operador_obj, 
                 descripcion= descripcion, 
                 circuito= circuito_obj,
-                estado= 'Activo'
+                estado= 'ACTIVO'
             )
 
-            respuesta_bool = True
-            respuesta = 'Se cargo el colectivo correctamente.'
-            
         except ValueError as ve:
-            respuesta_bool = False
-            respuesta = f"Error: {ve}"
+            print(f"Error: {ve}")
 
         except Exception as e:
             print("ERROR:", e)
-            respuesta_bool = False
-            respuesta = "Error inesperado al cargar la parada."
             
-        return render(request, 'colectivo_form.html', {
-            'respuesta_bool': respuesta_bool,
-            'respuesta': respuesta,
-            'usuarios': usuarios,
-            'circuitos': circuitos
-        })
+        return redirect('colectivos:coletivo_listar')
     else:
         return render(request, 'colectivo_form.html', {
             'usuarios': usuarios,

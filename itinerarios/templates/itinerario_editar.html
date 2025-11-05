@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body_id %}colectivo_form{% endblock %}
+
+{% block content %}
+<style>
+    p {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<main id="main-form">
+    <h2>Editar Itinerario {{ itinerario.nombre }}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="actions">
+            <button type="submit" class="btn">Guardar</button>
+            <a class="btn btn-secondary" href="{% url 'itinerarios:itinerario_listar' %}"><button>Cancelar</button></a>
+        </div>
+    </form>
+</main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}
