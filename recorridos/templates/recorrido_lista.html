@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block body_id %}colectivo_form{% endblock %}
+
+{% block content %}
+<style>
+    #main-form{
+        width: 100%;              
+        max-width: 1200px;        
+        margin: 32px auto;       
+        padding: 0 24px;          
+        box-sizing: border-box;
+    }
+
+    .table-wrap{
+        overflow-x: auto;         
+    }
+
+    .td-btn {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .div-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 50px;
+    }
+</style>
+
+<main id="main-form">
+    <div class="div-container">
+        <h2> Recorridos </h2>
+        <a href="{% url 'recorridos:circuito_formulario' %}">Agregar recorrido</a>
+    </div>
+    <table class="table_view">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha-Hora</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Itinerario</th>
+                <th>Estado</th>
+                <th>-</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for circuito in circuitos %}
+                <tr>
+                    <td>{{ circuito.pk }}</td>
+                    <td>{{ circuito.nombre }}</td>
+                    <td>{{ circuito.horario }}</td>
+                    <td>{{ circuito.origen }}</td>
+                    <td>{{ circuito.destino }}</td>
+                    <td>{{ circuito.itinerario }}</td>
+                    <td>{{ circuito.estado }}</td>
+                    <td class="td-btn">
+                        <a class="btn btn-small" href="{% url 'recorridos:circuito_editar' circuito.pk %}"><button>Editar</button></a>
+                        <form action="{% url 'recorridos:circuito_eliminar' circuito.pk %}" method="POST" style="display:inline;"
+                            onsubmit="return confirm('Eliminar circuito {{ circuito.nombre }}?');">
+                            {% csrf_token %}
+                            <button type="submit">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No hay recorridos cargados.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}
+
+{% block footer_script %}
+    {{ block.super }}
+{% endblock %}
+

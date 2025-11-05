@@ -83,7 +83,7 @@ def eliminar_colectivo(request, pk):
 def editar_colectivo(request, pk):
     obj = get_object_or_404(Colectivo, pk=pk)
     if request.method == 'POST':
-        form = ColectivoForm(request.POST, request.FILES, instance=obj)
+        form = ColectivoForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
             return redirect('colectivos:colectivo_listar')

@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from itinerarios.models import Itinerario
 from colectivos.models import Colectivo
 from .models import Circuito
+from .forms import CircuitoForm
 from datetime import datetime
 
 # Create your views here.
@@ -75,3 +76,34 @@ def recorrido_formulario(request):
             'itinerarios': itinerarios, 
             'colectivos': colectivos
         })
+    
+
+def eliminar_circuito(request, pk):
+    if request.method != 'POST':
+        return redirect('recorridos:circuito_listar')
+    try:
+        obj = get_object_or_404(Circuito, pk=pk)
+        obj.delete()
+        return redirect('recorridos:circuito_listar')
+    except Exception as e:
+        print('ERROR: ', e)
+        return redirect('recorridos:circuito_listar')
+
+
+
+def editar_circuito(request, pk):
+    obj = get_object_or_404(Circuito, pk=pk)
+    if request.method == 'POST':
+        form = CircuitoForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('recorridos:circuito_listar')
+        else:
+            return render(request, 'recorrido_editar.html', {'form': form, 'obj': obj})
+    else:
+        form = CircuitoForm(instance=obj)
+        return render(request, 'recorrido_editar.html', {'form': form, 'obj': obj})
+    
+def lista_circuito(request):
+    circuitos = Circuito.objects.all()
+    return render(request, 'recorrido_lista.html', {'circuitos': circuitos})
