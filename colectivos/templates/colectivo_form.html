@@ -26,15 +26,19 @@
             {% endfor %}
         </select>
 
+        <label for="circuito">Recorrido</label>
+        <select name="circuito" id="operador" required>
+            {% for circuito in circuitos %}
+                <option value="{{ circuito.id }}">{{ circuito.nombre }}</option>
+            {% endfor %}
+        </select>
+
         <div class="buttoner-form">
             <button type="submit">Agregar</button>
             <button type="reset">Limpiar</button>
         </div>
     </form>
 </main>
-<a href="{% url 'colectivos:lista_colectivo' %}">
-    chocolate cheap charly
-</a>
 {% endblock %}
 
 {% block mensajes %}

@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Colectivo
 from .forms import ColectivoForm
+from recorridos.models import Circuito
 from usuarios.models import Usuario
 
 def formulario_colectivo(request):
     usuarios = Usuario.objects.all()
+    circuitos = Circuito.objects.all()
 
     if request.method == 'POST':
         try:
@@ -13,25 +15,28 @@ def formulario_colectivo(request):
             matricula = request.POST.get('matricula')
             descripcion = request.POST.get('descripcion')
             operador_pk = request.POST.get('operador')
+            circuito_pk = request.POST.get('circuito')
 
             try:
                 cantidad_asientos = int(cant_as)
             except (TypeError, ValueError):
                 cantidad_asientos = 0
 
-            if not operador_pk or cantidad_asientos <= 0:
+            if not operador_pk or not circuito_pk or cantidad_asientos <= 0:
                 respuesta_bool = False
                 respuesta = 'Datos incorrectos, volver a intentar.'
                 return render(request, 'colectivo_form.html', {
                     'respuesta_bool': respuesta_bool,
                     'respuesta': respuesta,
-                    'usuarios': usuarios
+                    'usuarios': usuarios,
+                    'circuitos': circuitos
                 })
 
-            if not (nombre and descripcion and operador_pk and matricula):
+            if not (nombre and descripcion and operador_pk and circuito_pk and matricula):
                     raise ValueError("Debe completar todos los campos obligatorios.")
 
             operador_obj = get_object_or_404(Usuario, pk= operador_pk)
+            circuito_obj = get_object_or_404(Circuito, pk= circuito_pk)
 
             Colectivo.objects.create(
                 nombre= nombre, 
@@ -39,6 +44,7 @@ def formulario_colectivo(request):
                 matricula= matricula, 
                 operador= operador_obj, 
                 descripcion= descripcion, 
+                circuito= circuito_obj,
                 estado= 'Activo'
             )
 
@@ -57,19 +63,21 @@ def formulario_colectivo(request):
         return render(request, 'colectivo_form.html', {
             'respuesta_bool': respuesta_bool,
             'respuesta': respuesta,
-            'usuarios': usuarios
+            'usuarios': usuarios,
+            'circuitos': circuitos
         })
     else:
         return render(request, 'colectivo_form.html', {
-            'usuarios': usuarios
+            'usuarios': usuarios,
+            'circuitos': circuitos
         })
 
 def eliminar_colectivo(request, pk):
     if request.method != 'POST':
-        return redirect('colectivos:colectivo_lista')
+        return redirect('colectivos:colectivo_listar')
     obj = get_object_or_404(Colectivo, pk=pk)
     obj.delete()
-    return redirect('colectivos:colectivo_lista')
+    return redirect('colectivos:colectivo_listar')
 
 
 def editar_colectivo(request, pk):
@@ -78,7 +86,7 @@ def editar_colectivo(request, pk):
         form = ColectivoForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect('colectivos:colectivo_lista')
+            return redirect('colectivos:colectivo_listar')
         else:
             return render(request, 'colectivo_editar.html', {'form': form, 'obj': obj})
     else:

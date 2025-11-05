@@ -7,7 +7,6 @@ class ColectivoForm(forms.ModelForm):
         fields = [
             'nombre', 
             'cant_asientos', 
-            'cant_ocupados', 
             'matricula',
             'operador',
             'descripcion',

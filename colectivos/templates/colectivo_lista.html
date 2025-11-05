@@ -3,20 +3,45 @@
 {% block body_id %}colectivo_form{% endblock %}
 
 {% block content %}
-
 <style>
-    
+    #main-form{
+        width: 100%;              
+        max-width: 1200px;        
+        margin: 32px auto;       
+        padding: 0 24px;          
+        box-sizing: border-box;
+    }
+
+    .table-wrap{
+        overflow-x: auto;         
+    }
+
+    .td-btn {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .div-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 50px;
+    }
 </style>
 
 <main id="main-form">
-    <h2> Colectivos </h2>
+    <div class="div-container">
+        <h2> Colectivos </h2>
+        <a href="{% url 'colectivos:colectivo_formulario' %}">Agregar colectivo</a>
+    </div>
     <table class="table_view">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Cant_asientos</th>
-                <th>Asientos_oc</th>
                 <th>Matricula</th>
                 <th>Operador</th>
                 <th>Descripcion</th>
@@ -31,18 +56,17 @@
                     <td>{{ colectivo.pk }}</td>
                     <td>{{ colectivo.nombre }}</td>
                     <td>{{ colectivo.cant_asientos }}</td>
-                    <td>{{ colectivo.cant_ocupados }}</td>
                     <td>{{ colectivo.matricula }}</td>
-                    <td>{{ colectivo.operador }}</td>
+                    <td>{{ colectivo.operador.nombre }}</td>
                     <td>{{ colectivo.descripcion }}</td>
-                    <td>{{ colectivo.circuito }}</td>
+                    <td>{{ colectivo.circuito.nombre }}</td>
                     <td>{{ colectivo.estado }}</td>
-                    <td>
-                        <a class="btn btn-small" href="#"><button>Editar</button></a>
-                        <form action="#" method="post" style="display:inline;"
+                    <td class="td-btn">
+                        <a class="btn btn-small" href="{% url 'colectivos:colectivo_editar' colectivo.pk %}"><button>Editar</button></a>
+                        <form action="{% url 'colectivos:colectivo_eliminar' colectivo.pk %}" method="POST" style="display:inline;"
                             onsubmit="return confirm('Eliminar colectivo {{ colectivo.nombre }}?');">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-small">Borrar</button>
+                            <button type="submit">Borrar</button>
                         </form>
                     </td>
                 </tr>
