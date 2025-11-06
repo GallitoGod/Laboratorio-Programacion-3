@@ -2,18 +2,23 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from reservas.models import Reserva
 from django.utils import timezone
+from django.urls import reverse
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('core:landing')
+
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('core:landing')
-        else:
-            return render(request, "usuarios/login.html", {"msj": "Credenciales incorrectas"})
-    return redirect('core:landing') 
+            next_url = request.GET.get('next') or request.POST.get('next') or reverse('core:landing')
+            return redirect(next_url)
+        return render(request, "usuarios/login.html", {"msj": "Credenciales incorrectas"})
+
+    return render(request, "usuarios/login.html") 
 
 def logout_view(request):
     logout(request)
@@ -23,7 +28,7 @@ def mis_reservas(request):
     if not request.user.is_authenticated:
         return render(request, 'reservas.html', {
             'reservas': [],
-            'mensaje': 'Debes iniciar sesión para ver tus reservas.'
+            'mensaje': 'Debes iniciar sesiÃ³n para ver tus reservas.'
         })
 
     if request.method == 'POST':
