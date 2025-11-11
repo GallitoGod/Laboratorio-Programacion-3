@@ -3,3 +3,8 @@
 ## Alumnos: 
 - Arce Lautaro Martín 01694
 - Gallo Pablo Javier 01733
+
+> [!IMPORTANT]
+> Documentacion del proyect:
+> Todavia no esta terminado
+> [📄 Ver documento (PDF)](docs/IS1-2025-Tp3_Equipo1_Gallo-Gallo-Arce.pdf)
