@@ -5,5 +5,5 @@
 - Gallo Pablo Javier 01733
 
 > [!IMPORTANT]
-> Documentacion del proyect:
+> Documentacion del proyecto:
 > [📄 Ver documento (PDF)](docs/IS1-2025-Tp3_Equipo1_Gallo-Gallo-Arce.pdf)
